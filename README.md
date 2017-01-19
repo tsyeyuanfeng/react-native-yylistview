@@ -1,43 +1,30 @@
-![](https://travis-ci.org/sghiassy/react-native-sglistview.svg?branch=master)
+![](https://travis-ci.org/tsyeyuanfeng/react-native-yylistview.svg?branch=master)
 
-# React Native SGListView
+# React Native YYListView
 
-SGListView is a memory minded implementation of the React Native's ListView.
+YYListView is a memory-improved implementation of the React Native's ListView.
 
 ## The Problem
-
-The React Native team has done a tremendous job building a robust platform. One oversight, is the memory performance of their ListView implementation. When scrolling down long lists, the memory footprint increases linearly and will eventually exhaust all available memory. On a device as memory-constrained as a mobile device, this behavior can be a deal breaker for many.
-
-![Native ListView Performance](http://cl.ly/image/1E1Q2M2x1Y3F/Before.png)
-An example of ListView performance for long lists.
-
-## The Solution
-
-SGListView resolves React Native's ListView memory problem by controlling what's being drawn to the screen and what's kept in memory. When cells are scrolled off screen, SGListView intelligently flushes their internal view and only retains the cell's rendered bounding box - resulting in huge memory gains.
-
-![SGListView Performance](http://cl.ly/image/3e2y0a1C1n0K/After.png)
-An example of SGListView performance for long lists.
-
+YYListView is inspired by [SGListView](https://github.com/sghiassy/react-native-sglistview). SGListView is implemented based on the `onChangVisibleRows` callback method of React Native ListView. But there is a big problem with `onChangVisibleRows` callback method. See [ListView onChangeVisibleRows() stops being triggered after 100 rendered rows #9101
+](https://github.com/facebook/react-native/issues/9101). So I decided to write YYListView based on `onScroll` callback method of React Native ListView.
 
 ## Installation
 
 Install via npm
 
 ```bash
-npm install react-native-sglistview --save
+npm install react-native-yylistview --save
 ```
 
 ## Usage
 
-SGListView was designed to be a developer-friendly drop-in replacement for ListView. Simply import the package and change the `ListView` references in the render methods to `SGListView`. Nothing else. No fuss, no muss.
-
-Import SGListView
+Import YYListView
 
 ```js
-import SGListView from 'react-native-sglistview';
+import YYListView from 'react-native-yylistview';
 ```
 
-Change references from `ListView` to `SGListView`.
+Change references from `ListView` to `YYListView`.
 
 From:
 ```jsx
@@ -45,129 +32,5 @@ From:
 ```
 To:
 ```jsx
-<SGListView ... />
-```
-
-Done.
-**NOTE**: You still create the datasource using ListView (i.e.: `var dataSource = new ListView.DataSource(...)`)
-
-#### Reference Configuration
-You must clear each argument's meaning, suggent to read these two RN official documents: [ListView component](http://facebook.github.io/react-native/releases/0.31/docs/listview.html)  [ListView performance optimize](http://facebook.github.io/react-native/releases/0.31/docs/performance.html#listview-initial-rendering-is-too-slow-or-scroll-performance-is-bad-for-large-lists)
-
-SGListView Component
-```jsx
- <SGListView
-                dataSource={this.getDataSource() } //data source
-                ref={'listview'}
-                initialListSize={1}
-                stickyHeaderIndices={[]}
-                onEndReachedThreshold={1}
-                scrollRenderAheadDistance={1}
-                pageSize={1}
-                renderRow={(item) =>
-                    <ListItem>
-                        <Text>{item}</Text>
-                    </ListItem>
-                }
-                />
-```
-Data Source
-```js
-    getDataSource() {
-        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id });
-        return ds.cloneWithRows(this.props.dataSource);
-    }
-```
-
-## Methods
-
-  * **getNativeListView**: Get the underlying `ListView` element from `SGListView`.
-
-## Options
-
-  * **premptiveLoading (type: integer)**: SGListView will dump the internal view of each cell as it goes off the screen. Conversely, when the cell comes back on the screen, we repopulate the cell with its view. If this transition happens too late in the process, the user will see a flash on screen as the cell transitions from a blank bounding box to its full view representation. SGListView prevents this from happening by preemptively loading cells before they come on screen. By default, we load 2 cells in the future before they come on screen. SGListView allows you to override the number of cells to load preemptively through the prop *premptiveLoading*. **Note**: Because of this logic, its advised not to use ListView's prop *scrollRenderAheadDistance* as they can be in conflict with one another.
-
-## FAQ
-
-### Does this approach reuse cells?
-
-Unfortunately no. Instead what SGListView does is to dump the internal view of cells as they scroll off screen, so that only a simple bounding box of the cell remains in memory.
-
-### Why do you keep cells around when they go off screen? Why don't you just remove them?
-
-We keep cells around because we wanted SGListView to be a high-fidelity drop-in replacement for ListView - which meant sacrificing performance for compatibility.
-
-We wanted pixel perfection between ListView and SGListView. This meant that we had to rely on ListView's underlying CSS engine to keep pixel level fidelity between ListView layouts and SGListView layouts. With flexbox styling, removing a cell from a grid can cause a reflow of all remaining cells and therefore could mess with design fidelity. Keeping the bounding box in memory resolved any and all layout concerns.
-
-### Why didn't you wrap a UICollectionView / UITableView?
-
-One key goal for this project was to make the final solution platform independent. Using an underlying UICollectionView or UITableView would've tied the implementation to iOS's UIKit and was something we worked to avoid.
-
-## Notice
-
-This is alpha-version code; use skeptically.
-
-## Authors
-
-Shaheen Ghiassy <shaheen.ghiassy@gmail.com>
-
-## Contributing
-
-Every attempt will be made to review PRs promptly. In addition please follow the below style guide
-
-### Contributing Style Guide
-
-#### Annotate Logic Tests
-
-Use variables / BOOLean values to better annotate logic tests. This makes code more readable and maintainable.
-
-Instead of
-
-```js
-if (evt.x >= box.x1 && evt.x <= box.x2) {
-```
-
-do
-
-```js
-var userClickedInsideBox = evt.x >= box.x1 && evt.x <= box.x2;
-
-if (userClickedInsideBox) {
-```
-
-#### Semicolons?
-
-Yes, semicolons are required. The lack of semicolons in JS lead to obsure ASI bugs [link](http://stackoverflow.com/questions/444080/do-you-recommend-using-semicolons-after-every-statement-in-javascript) and [Douglas Crockford says to use them](http://javascript.crockford.com/code.html).
-
-#### Brackets are required
-
-Yup
-
-#### Brackets on the same line
-
-Do
-
-```js
-if (test === true) {
-```
-
-Not
-
-```js
-if (test === true)
-{
-```
-
-#### If spacing
-
-Do
-
-```js
-if (test === true) {
-```
-
-Not
-
-```js
-if( test===true ){
+<YYListView ... />
 ```
