@@ -1,0 +1,53 @@
+{
+  "name": "react-native-yylistview",
+  "version": "1.0.0",
+  "description": "YYListView is a memory-improved implementation of React Native's ListView",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel --source-maps=true --out-dir=dist lib",
+    "lint": "eslint --fix lib test",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsyeyuanfeng/react-native-yylistview.git"
+  },
+  "keywords": [
+    "ReactNative",
+    "ListView"
+  ],
+  "author": "Yaphet Ye <tsyeyuanfeng@126.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tsyeyuanfeng/react-native-yylistview/issues"
+  },
+  "homepage": "https://github.com/tsyeyuanfeng/react-native-yylistview#readme",
+  "peerDependencies": {
+    "react-native": ">=0.25.0",
+    "react": ">=0.14.0 || ^15.0.0"
+  },
+  "files": [
+    "*.js",
+    "dist",
+    "lib"
+  ],
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "enzyme": "^2.7.0",
+    "eslint": "^3.13.1",
+    "eslint-config-airbnb": "^14.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-react": "^6.9.0",
+    "mocha": "^3.2.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-native": "^0.40.0",
+    "react-native-mock": "^0.2.9",
+    "should": "^11.1.2"
+  }
+}
