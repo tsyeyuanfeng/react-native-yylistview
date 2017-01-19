@@ -1,4 +1,4 @@
-![](https://travis-ci.org/tsyeyuanfeng/react-native-yylistview.svg?branch=master)
+[![Build Status](https://travis-ci.org/tsyeyuanfeng/react-native-yylistview.svg?branch=master)](https://travis-ci.org/tsyeyuanfeng/react-native-yylistview)
 
 # React Native YYListView
 
