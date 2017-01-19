@@ -5,5 +5,10 @@
       "experimentalObjectRestSpread": true
     }
   },
-  "rules": {}
+  "rules": {
+    "no-plusplus": 0,
+    "no-unused-expressions": 0,
+    "react/jsx-filename-extension": 0,
+    "react/prop-types": 0
+  }
 }

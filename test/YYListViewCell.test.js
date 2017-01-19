@@ -1,7 +1,7 @@
 import should from 'should';
 import { shallow } from 'enzyme';
-import YYListViewCell from '../dist/YYListViewCell';
 import React from 'react';
+import YYListViewCell from '../dist/YYListViewCell';
 
 describe('YYListViewCell', () => {
 
@@ -9,7 +9,7 @@ describe('YYListViewCell', () => {
 
   before(() => {
     yyListViewCell = shallow(
-      <YYListViewCell />
+      <YYListViewCell />,
     );
   });
 

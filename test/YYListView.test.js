@@ -1,7 +1,7 @@
 import should from 'should';
 import { shallow } from 'enzyme';
-import YYListView from '../dist';
 import React from 'react';
+import YYListView from '../dist';
 
 describe('YYListView', () => {
 
@@ -9,7 +9,7 @@ describe('YYListView', () => {
 
   before(() => {
     yyListView = shallow(
-      <YYListView />
+      <YYListView />,
     );
   });
 
@@ -21,9 +21,4 @@ describe('YYListView', () => {
   it('should contain a native ListView', () => {
     yyListView.nodes[0].type.displayName.should.equal('ListView');
   });
-
-  it('should contain a ref to a native ListView component', () => {
-    yyListView.nodes[0].ref.should.equal('nativeListView');
-  });
-
 });
