@@ -1,11 +1,12 @@
 language: node_js
 node_js:
-  - "5"
-  - "5.10"
   - "6"
-build:
-  run:
-    - npm install
-    - npm run lint
-    - npm run build
-    - npm run test
+install:
+  - npm install
+script:
+  - npm run lint
+  - npm run build
+  - npm test
+branches:
+  only:
+    - master
